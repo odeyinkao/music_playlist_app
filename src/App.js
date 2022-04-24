@@ -1,24 +1,19 @@
-import logo from './logo.svg';
+import { useSelector } from 'react-redux';
 import './App.css';
+import Modal from './components/UI/Modal';
+import AuthScreen from './screens/AuthScreen';
+import MainScreen from './screens/MainScreen';
 
 function App() {
+  const isAuthenticated = useSelector(state => state.isAuthenticated);
+  const modal = useSelector(state => state.modal);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {modal.show && <Modal />}
+      { !isAuthenticated && <AuthScreen />}
+      { isAuthenticated && <MainScreen />}
+    </>
   );
 }
 
